@@ -240,7 +240,7 @@ def main(arguments=None):
         image_url, parsed_options, config
     )
 
-    crypto = CryptoURL(key=security_key)
+    crypto = CryptoURL(key=security_key.decode("utf-8"))
     url = crypto.generate(**thumbor_params)
     sys.stdout.write("URL:\n")
     sys.stdout.write(f"{url}\n")
