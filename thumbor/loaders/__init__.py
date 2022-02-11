@@ -16,7 +16,7 @@ class LoaderResult(object):
     ERROR_TIMEOUT = 'timeout'
     ERROR_BAD_REQUEST = "bad_request"
 
-def __init__(self, buffer=None, successful=True, error=None, metadata=None, extras=None):
+    def __init__(self, buffer=None, successful=True, error=None, metadata=None, extras=None):
         '''
         :param buffer: The media buffer
 
