@@ -8,8 +8,7 @@
 # http://www.opensource.org/licenses/mit-license
 # Copyright (c) 2011 globo.com thumbor@googlegroups.com
 
-from . import file_loader
-from . import http_loader
+from thumbor.loaders import LoaderResult, file_loader, http_loader
 from tornado.concurrent import return_future
 
 
@@ -19,6 +18,14 @@ def load(context, path, callback):
         if result.successful:
             callback(result)
         else:
+            if not http_loader.validate(context, path):
+                result = LoaderResult()
+                result.successful = False
+                result.error = LoaderResult.ERROR_BAD_REQUEST
+                result.extras["reason"] = "Unallowed domain"
+                result.extras["source"] = path
+
+                return result
             # If file_loader failed try http_loader
             http_loader.load(context, path, callback)
 
