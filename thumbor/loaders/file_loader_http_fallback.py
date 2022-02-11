@@ -24,8 +24,8 @@ def load(context, path, callback):
                 result.error = LoaderResult.ERROR_BAD_REQUEST
                 result.extras["reason"] = "Unallowed domain"
                 result.extras["source"] = path
-
-                return result
+                callback(result)
+                return
             # If file_loader failed try http_loader
             http_loader.load(context, path, callback)
 
